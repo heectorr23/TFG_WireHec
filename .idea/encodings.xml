@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/microservice-ApiGateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservice-Bill/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservice-Chat/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservice-ConfigServer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservice-Contability/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservice-Customer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservice-Employee/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservice-Eureka/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservice-Login/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservice-LowStock/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservice-Product/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservice-Supplier/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservice-billmanagerCRUDapi/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

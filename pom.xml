@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.4</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.empresa</groupId>
+    <artifactId>TFG_WireHec</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>TFG_WireHec</name>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>microservice-billmanagerCRUDapi</module>
+        <module>microservice-Eureka</module>
+        <module>microservice-ConfigServer</module>
+        <module>microservice-ApiGateway</module>
+        <module>microservice-Customer</module>
+        <module>microservice-Bill</module>
+        <module>microservice-Contability</module>
+        <module>microservice-Employee</module>
+        <module>microservice-Product</module>
+        <module>microservice-Supplier</module>
+        <module>microservice-LowStock</module>
+        <module>microservice-Chat</module>
+        <module>microservice-Login</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot</artifactId>
+                    <version>3.2.4</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
