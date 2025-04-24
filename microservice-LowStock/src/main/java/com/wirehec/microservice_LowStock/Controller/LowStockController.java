@@ -1,16 +1,16 @@
-package com.wirehec.microservice_Contability.Controller;
+package com.wirehec.microservice_LowStock.Controller;
 
-import com.wirehec.microservice_Contability.Service.Impl.ContabilityServiceImpl;
+import com.wirehec.microservice_LowStock.Service.Impl.LowStockServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/contability")
+@RequestMapping("/api/lowstock")
 @Slf4j
-public class ContabilityController {
+public class LowStockController {
 
     @Autowired
-    private ContabilityServiceImpl contabilityService;
+    private LowStockServiceImpl lowStockService;
 }
