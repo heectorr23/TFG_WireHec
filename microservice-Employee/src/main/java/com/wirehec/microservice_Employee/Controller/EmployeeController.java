@@ -1,0 +1,16 @@
+package com.wirehec.microservice_Employee.Controller;
+
+import com.wirehec.microservice_Employee.Service.Impl.EmployeeServiceImpl;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/employee")
+@Slf4j
+public class EmployeeController {
+    @Autowired
+    private EmployeeServiceImpl employeeService;
+
+}
