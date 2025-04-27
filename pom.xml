@@ -18,7 +18,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>microservice-billmanagerCRUDapi</module>
         <module>microservice-Eureka</module>
         <module>microservice-ConfigServer</module>
         <module>microservice-ApiGateway</module>
