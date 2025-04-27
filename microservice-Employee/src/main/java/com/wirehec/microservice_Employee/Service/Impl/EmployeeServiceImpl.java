@@ -24,7 +24,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     public EmployeeEntity updateEmployee(Long id, EmployeeEntity employeeEntity) {
-        EmployeeEntity existingEmployee = employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee not found"));
+        EmployeeEntity existingEmployee = employeeRepository.findById(id).orElseThrow();
         existingEmployee.setNombreEmpleado(employeeEntity.getNombreEmpleado());
         existingEmployee.setNifEmpleado(employeeEntity.getNifEmpleado());
         existingEmployee.setEmail(employeeEntity.getEmail());
