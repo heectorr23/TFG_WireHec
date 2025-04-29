@@ -21,7 +21,7 @@ public class ContabilityServiceImpl implements IContabilityService {
     public ContabilityEntity saveContability(ContabilityEntity contabilityEntity) {
         return contabilityRepository.save(contabilityEntity);
     }
-
+    @Override
     public ContabilityEntity updateContability(Long id, ContabilityEntity contabilityEntity) {
         ContabilityEntity existingContability = contabilityRepository.findById(id).orElseThrow();
         existingContability.setIdContabilidad(contabilityEntity.getIdContabilidad());
