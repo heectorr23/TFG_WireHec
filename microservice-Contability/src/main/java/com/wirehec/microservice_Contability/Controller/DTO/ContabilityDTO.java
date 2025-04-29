@@ -12,18 +12,12 @@ import lombok.*;
 @ToString
 public class ContabilityDTO {
 
-    private String name;
+    private Long idContabilidad;
 
-    private String contacto;
+    private Float presupuestomensual;
 
-    private int telefono;
+    private Float beneficio;
 
-    private String identificacion;
-
-    private String email;
-
-    private String zona;
-
-    private String direccion;
+    private Float gasto;
 
 }
