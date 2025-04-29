@@ -24,6 +24,7 @@ public class CustomerServiceImpl implements ICustomerService {
         return customerRepository.save(customerEntity);
     }
 
+    @Override
     public CustomerEntity updateCustomer(Long id, CustomerEntity customerEntity) {
         CustomerEntity existingCustomer = customerRepository.findById(id).orElseThrow();
         existingCustomer.setName(customerEntity.getName());

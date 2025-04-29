@@ -10,5 +10,7 @@ public interface ICustomerService {
 
     CustomerEntity saveCustomer(CustomerEntity CustomerEntity);
 
+    CustomerEntity updateCustomer(Long id, CustomerEntity customerEntity);
+
     void deleteCustomer(Long id);
 }
