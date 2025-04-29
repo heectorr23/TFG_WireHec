@@ -10,5 +10,7 @@ public interface IContabilityService {
 
     ContabilityEntity saveContability(ContabilityEntity contabilityEntity);
 
+    ContabilityEntity updateContability(Long id, ContabilityEntity contabilityEntity);
+
     void deleteContability(Long id);
 }
