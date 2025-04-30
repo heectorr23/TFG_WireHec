@@ -2,11 +2,18 @@ package com.wirehec.microservice_Supplier.Controller.DTO;
 
 import com.wirehec.microservice_Supplier.Entity.SupplierEntity;
 import com.wirehec.microservice_Supplier.Entity.SupplierOrderEntity;
-import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
-public class SuplierDetailDTO {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class SupplierDetailDTO {
 
     private Long  idDetalleProveedor;
 

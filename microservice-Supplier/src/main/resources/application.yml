@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: msvc-employee
+  cloud:
+    config:
+      enabled: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ERPDB
