@@ -22,7 +22,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public EmployeeEntity saveEmployee(EmployeeEntity employeeEntity) {
         return employeeRepository.save(employeeEntity);
     }
-
+    @Override
     public EmployeeEntity updateEmployee(Long id, EmployeeEntity employeeEntity) {
         EmployeeEntity existingEmployee = employeeRepository.findById(id).orElseThrow();
         existingEmployee.setNombreEmpleado(employeeEntity.getNombreEmpleado());
