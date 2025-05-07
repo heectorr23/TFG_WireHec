@@ -30,9 +30,9 @@ public class ProductServiceImpl implements IProductService {
         return SuplierByProductResponse.builder()
                 .nombreProducto(product.get(0).getNombreProducto())
                 .categoriaProducto(product.get(1).getCategoriaProducto())
-                .precioVenta(product.getPrecioVenta())
-                .stock(product.getStock())
-                .precioCoste(product.getPrecioCoste())
+                .precioVenta(product.get(2).getPrecioVenta())
+                .stock(product.get(3).getStock())
+                .precioCoste(product.get(4).getPrecioCoste())
                 .suppliers(supplierDTOList)
                 .build();
     }
