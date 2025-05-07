@@ -1,6 +1,8 @@
 package com.wirehec.microservice_Product.Service.Impl;
 
+import com.wirehec.microservice_Product.Controller.DTO.ProductDTO;
 import com.wirehec.microservice_Product.Controller.DTO.SupplierDTO;
+import com.wirehec.microservice_Product.Entity.ProductEntity;
 import com.wirehec.microservice_Product.HTTP.Response.SuplierByProductResponse;
 import com.wirehec.microservice_Product.Repository.ProductRepository;
 import com.wirehec.microservice_Product.Service.Inter.IProductService;
@@ -21,9 +23,17 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public SuplierByProductResponse findAll() {
+        ProductEntity product = productRepository.findAll();
+
         List<SupplierDTO> supplierDTOList = supplierClient.findAll();
+
         return SuplierByProductResponse.builder()
-                .id()
+                .nombreProducto(product.getNombreProducto())
+                .categoriaProducto(product.getCategoriaProducto())
+                .precioVenta(product.getPrecioVenta())
+                .stock(product.getStock())
+                .precioCoste(product.getPrecioCoste())
+                .suppliers(supplierDTOList)
                 .build();
     }
 }
