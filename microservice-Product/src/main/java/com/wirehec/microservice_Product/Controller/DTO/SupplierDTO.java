@@ -11,14 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SupplierDTO {
     private Long idProveedor;
-
     private String nombreProveedor;
-
     private int cifProveedor;
-
     private String emailProveedor;
-
     private String categoriaProveedor;
-
     private String productoProveedor;
 }

@@ -1,16 +1,16 @@
 package com.wirehec.microservice_Product.Service.Impl;
 
-import com.wirehec.microservice_Product.Controller.DTO.ProductDTO;
-import com.wirehec.microservice_Product.Controller.DTO.SupplierDTO;
+import com.wirehec.microservice_Product.Controller.DTO.DetailSupplierDTO;
 import com.wirehec.microservice_Product.Entity.ProductEntity;
-import com.wirehec.microservice_Product.HTTP.Response.SuplierByProductResponse;
+import com.wirehec.microservice_Product.HTTP.Response.DetailSuplierByProductResponse;
 import com.wirehec.microservice_Product.Repository.ProductRepository;
 import com.wirehec.microservice_Product.Service.Inter.IProductService;
-import com.wirehec.microservice_Product.client.SupplierClient;
+import com.wirehec.microservice_Product.client.DetailSupplierClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -19,20 +19,23 @@ public class ProductServiceImpl implements IProductService {
     private ProductRepository productRepository;
 
     @Autowired
-    private SupplierClient supplierClient;
+    private DetailSupplierClient detailSupplierClient;
 
     @Override
-    public SuplierByProductResponse findAll() {
-        List<ProductEntity> product = productRepository.findAll();
+    public DetailSuplierByProductResponse findProductBySupplier(Long idProduct) {
 
-        List<SupplierDTO> supplierDTOList = supplierClient.findAll();
+        //consultar el producto
+        ProductEntity product = productRepository.findById(idProduct).orElseThrow();
 
-        return SuplierByProductResponse.builder()
-                .nombreProducto(product.get(0).getNombreProducto())
-                .categoriaProducto(product.get(1).getCategoriaProducto())
-                .precioVenta(product.get(2).getPrecioVenta())
-                .stock(product.get(3).getStock())
-                .precioCoste(product.get(4).getPrecioCoste())
+        List<DetailSupplierDTO> supplierDTOList = detailSupplierClient.findByIdProducts(idProduct);
+
+        return DetailSuplierByProductResponse.builder()
+                .id(product.getId())
+                .nombreProducto(product.getNombreProducto())
+                .categoriaProducto(product.getCategoriaProducto())
+                .precioVenta(product.getPrecioVenta())
+                .stock(product.getStock())
+                .precioCoste(product.getPrecioCoste())
                 .suppliers(supplierDTOList)
                 .build();
     }

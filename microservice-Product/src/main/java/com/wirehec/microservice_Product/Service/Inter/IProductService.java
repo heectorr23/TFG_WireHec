@@ -1,10 +1,11 @@
 package com.wirehec.microservice_Product.Service.Inter;
 
-import com.wirehec.microservice_Product.HTTP.Response.SuplierByProductResponse;
+import com.wirehec.microservice_Product.HTTP.Response.DetailSuplierByProductResponse;
+
+;
 
 public interface IProductService {
 
-    SuplierByProductResponse findAll();
-
+    DetailSuplierByProductResponse findProductBySupplier(Long idProduct);
 
 }

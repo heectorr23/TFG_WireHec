@@ -17,8 +17,9 @@ public class ProductController {
     @Autowired
     private ProductServiceImpl productService;
 
-    @GetMapping()
-    public ResponseEntity<?> SuplierByProductResponse() {
-        return ResponseEntity.ok(productService.findAll());
+    @GetMapping("/findProductBySupplier/{idProduct}")
+    public ResponseEntity<?> findProductBySupplier(Long idProduct) {
+        log.info("Fetching product by supplier with ID: {}", idProduct);
+        return ResponseEntity.ok(productService.findProductBySupplier(idProduct));
     }
 }

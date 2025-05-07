@@ -1,4 +1,4 @@
-package com.wirehec.microservice_Supplier.Controller.DTO;
+package com.wirehec.microservice_Product.Controller.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
