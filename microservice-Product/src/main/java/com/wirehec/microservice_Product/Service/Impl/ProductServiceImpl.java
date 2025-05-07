@@ -23,13 +23,13 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public SuplierByProductResponse findAll() {
-        ProductEntity product = productRepository.findAll();
+        List<ProductEntity> product = productRepository.findAll();
 
         List<SupplierDTO> supplierDTOList = supplierClient.findAll();
 
         return SuplierByProductResponse.builder()
-                .nombreProducto(product.getNombreProducto())
-                .categoriaProducto(product.getCategoriaProducto())
+                .nombreProducto(product.get(0).getNombreProducto())
+                .categoriaProducto(product.get(1).getCategoriaProducto())
                 .precioVenta(product.getPrecioVenta())
                 .stock(product.getStock())
                 .precioCoste(product.getPrecioCoste())
