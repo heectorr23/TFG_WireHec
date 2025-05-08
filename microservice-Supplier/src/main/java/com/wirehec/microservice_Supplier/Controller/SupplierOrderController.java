@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/Ordersupplier")
+@RequestMapping("/api/orderSupplier")
 @Slf4j
 public class SupplierOrderController {
 
