@@ -22,6 +22,30 @@ public class ProductServiceImpl implements IProductService {
     private DetailSupplierClient detailSupplierClient;
 
     @Override
+    public List<ProductEntity> findAll() {
+        return productRepository.findAll();
+    }
+
+    @Override
+    public ProductEntity saveProduct(ProductEntity productEntity) {
+        return productRepository.save(productEntity);
+    }
+
+    public ProductEntity updateProduct(Long id, ProductEntity productEntity) {
+        ProductEntity existingProduct = productRepository.findById(id).orElseThrow();
+        existingProduct.setNombreProducto(productEntity.getNombreProducto());
+        existingProduct.setCategoriaProducto(productEntity.getCategoriaProducto());
+        existingProduct.setPrecioVenta(productEntity.getPrecioVenta());
+        existingProduct.setStock(productEntity.getStock());
+        existingProduct.setPrecioCoste(productEntity.getPrecioCoste());
+        return productRepository.save(existingProduct);
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
+    @Override
     public DetailSuplierByProductResponse findProductBySupplier(Long idProduct) {
 
         //consultar el producto
