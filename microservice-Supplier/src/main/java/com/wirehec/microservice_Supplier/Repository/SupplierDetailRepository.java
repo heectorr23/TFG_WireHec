@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface SupplierDetailRepository extends JpaRepository<SupplierDetailRepository, Long> {
+public interface SupplierDetailRepository extends JpaRepository<SupplierDetailEntity, Long> {
 
     // Méthodo para encontrar productos por ID de proveedor
     @Query("SELECT d FROM SupplierDetailEntity d WHERE d.idProduct = :idProduct")

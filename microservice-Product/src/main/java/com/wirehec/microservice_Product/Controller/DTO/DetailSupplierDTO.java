@@ -14,5 +14,4 @@ public class DetailSupplierDTO {
     private SupplierDTO supplierEntity;
     private SupplierOrderDTO supplierOrderEntity;
     private Long idProduct;
-    // Puedes añadir un campo para las órdenes si es necesario
 }
