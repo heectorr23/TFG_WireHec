@@ -21,6 +21,8 @@ public class EmployeeDTO {
 
     private String email;
 
+    private String username;
+
     private String passwordEmpleado;
 
     private Set<RoleEntity> roles;

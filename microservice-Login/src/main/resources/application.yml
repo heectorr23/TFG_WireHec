@@ -5,19 +5,30 @@ spring:
   application:
     name: msvc-login
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/ERPDB
+    url: jdbc:mysql://localhost:3307/erpdb
     username: root
     password: curso
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    config:
+      enabled: false
   jpa:
-    hibernate:
-      ddl-auto: create-drop
-    database: mysql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: create
+
+jwt:
+  secret:
+    key: 2zzSWKEwFPJmjJvXjvg03xqmwewO5hHFKZBTuDkpkoU=
+  time:
+    expiration: 86400000
+
 eureka:
   instance:
     hostname: localhost
   client:
     service-url:
-      default-zone: http://${eureka.instance.hostname}:8761/eureka
+      default-zone: http://${eureka.instance.hostname}:8762/eureka
