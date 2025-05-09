@@ -1,4 +1,4 @@
-package com.wirehec.microservice_Supplier.Controller.DTO;
+package com.wirehec.microservice_Product.Controller.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,7 @@ public class SupplierOrderDTO {
 
     private Long  idPedidoProveedor;
 
-    private Date FechaPedido;
+    private Date fechaPedido;
 
-    private Date FechaEntrega;
+    private Date fechaEntrega;
 }

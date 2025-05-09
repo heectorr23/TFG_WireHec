@@ -1,6 +1,5 @@
 package com.wirehec.microservice_Supplier.Controller;
 
-import com.wirehec.microservice_Supplier.Controller.DTO.SupplierDTO;
 import com.wirehec.microservice_Supplier.Controller.DTO.SupplierDetailDTO;
 import com.wirehec.microservice_Supplier.Entity.SupplierDetailEntity;
 import com.wirehec.microservice_Supplier.Service.Impl.SupplierDetailServiceImpl;
@@ -34,8 +33,6 @@ public class SupplierDetailController {
         return ResponseEntity.ok(supplierDetailDTOS);
     }
 
-
-
     @PostMapping("/save")
     public ResponseEntity<?> saveSupplierDetail(@RequestBody SupplierDetailDTO supplierDetailDTO) {
         SupplierDetailEntity supplierDetailEntity = SupplierDetailEntity.builder()
@@ -62,5 +59,23 @@ public class SupplierDetailController {
     public ResponseEntity<?> deleteSupplierDetail(@PathVariable Long id) {
         supplierDetailService.deleteSupplierDetail(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping()
+    @RequestMapping("/findAllSuplierProducts/{idProduct}")
+    public ResponseEntity<?> findByIdProducts(@PathVariable Long idProduct) {
+
+        List<SuplierDetailDTO> supplierDetailDTOs = supplierDetailService.findByIdProduct(idProduct)
+                .stream()
+                .map(supplierDetail -> SuplierDetailDTO.builder()
+                        .idDetalleProveedor(supplierDetail.getIdDetalleProveedor())
+                        .supplierEntity(supplierDetail.getSupplierEntity())
+                        .supplierOrderEntities(supplierDetail.getSupplierOrderEntities())
+                        .idProduct(supplierDetail.getIdProduct())
+                        .build()
+                )
+                .toList(); // Collect the stream into a list
+
+        return ResponseEntity.ok(supplierDetailDTOs);
     }
 }

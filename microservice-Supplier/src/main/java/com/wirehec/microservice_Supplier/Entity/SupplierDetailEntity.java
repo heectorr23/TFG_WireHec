@@ -31,4 +31,6 @@ public class SupplierDetailEntity {
             joinColumns = @JoinColumn(name = "IdDetalleProveedor"),
             inverseJoinColumns = @JoinColumn(name = "IdPedidoProveedor"))
     private Set<SupplierOrderEntity> supplierOrderEntities;
+
+    private Long idProduct;
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/Ordersupplier")
+@RequestMapping("/api/orderSupplier")
 @Slf4j
 public class SupplierOrderController {
 
@@ -25,6 +25,8 @@ public class SupplierOrderController {
                 .stream()
                 .map(supplierOrder -> SupplierOrderDTO.builder()
                         .idPedidoProveedor(supplierOrder.getIdPedidoProveedor())
+                        .FechaPedido(supplierOrder.getFechaPedido())
+                        .FechaEntrega(supplierOrder.getFechaEntrega())
                         .build()
                 )
                 .toList(); // Collect the stream into a list
@@ -34,6 +36,8 @@ public class SupplierOrderController {
     public ResponseEntity<?> saveSupplierOrder(@RequestBody SupplierOrderDTO supplierOrderDTO) {
         SupplierOrderEntity supplierOrderEntity = SupplierOrderEntity.builder()
                 .idPedidoProveedor(supplierOrderDTO.getIdPedidoProveedor())
+                .FechaPedido(supplierOrderDTO.getFechaPedido())
+                .FechaEntrega(supplierOrderDTO.getFechaEntrega())
                 .build();
         SupplierOrderEntity savedSupplierOrder = supplierOrderService.saveSupplierOrder(supplierOrderEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedSupplierOrder);
@@ -43,6 +47,8 @@ public class SupplierOrderController {
     public ResponseEntity<?> updateSupplierOrder(@PathVariable Long id, @RequestBody SupplierOrderDTO supplierOrderDTO) {
         SupplierOrderEntity supplierOrderEntity = SupplierOrderEntity.builder()
                 .idPedidoProveedor(id)
+                .FechaPedido(supplierOrderDTO.getFechaPedido())
+                .FechaEntrega(supplierOrderDTO.getFechaEntrega())
                 .build();
         SupplierOrderEntity updatedSupplierOrder = supplierOrderService.saveSupplierOrder(supplierOrderEntity);
         return ResponseEntity.ok(updatedSupplierOrder);
