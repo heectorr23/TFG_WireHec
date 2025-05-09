@@ -1,6 +1,5 @@
 package com.wirehec.microservice_Supplier.Repository;
 
-import com.wirehec.microservice_Supplier.Entity.SupplierDetailEntity;
 import com.wirehec.microservice_Supplier.Entity.SupplierOrderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -35,4 +35,9 @@ public class SupplierDetailServiceImpl implements ISupplierDetailService {
     public void deleteSupplierDetail(Long id) {
         supplierDetailRepository.deleteById(id);
     }
+
+    @Override
+    public List<SupplierDetailEntity> findByIdProduct(Long idProduct) {
+        return supplierDetailRepository.findByIdProduct(idProduct);
+    }
 }

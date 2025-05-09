@@ -2,10 +2,8 @@ package com.wirehec.microservice_Supplier.Controller.DTO;
 
 import com.wirehec.microservice_Supplier.Entity.SupplierEntity;
 import com.wirehec.microservice_Supplier.Entity.SupplierOrderEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Set;
 

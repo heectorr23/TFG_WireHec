@@ -1,9 +1,5 @@
 package com.wirehec.microservice_Supplier.Service.Inter;
 
-import com.wirehec.microservice_Supplier.Entity.SupplierDetailEntity;
-
-import java.util.List;
-
 public interface ISupplierDetailService {
 
     List<SupplierDetailEntity> findAll();
@@ -13,5 +9,6 @@ public interface ISupplierDetailService {
     SupplierDetailEntity updateSupplierDetail(Long id, SupplierDetailEntity supplierDetailEntity);
 
     void deleteSupplierDetail(Long id);
-}
 
+    List<SupplierDetailEntity> findByIdProduct(Long idProduct);
+}
