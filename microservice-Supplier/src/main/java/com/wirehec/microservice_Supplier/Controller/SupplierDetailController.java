@@ -1,6 +1,5 @@
 package com.wirehec.microservice_Supplier.Controller;
 
-import com.wirehec.microservice_Supplier.Controller.DTO.SupplierDTO;
 import com.wirehec.microservice_Supplier.Controller.DTO.SupplierDetailDTO;
 import com.wirehec.microservice_Supplier.Entity.SupplierDetailEntity;
 import com.wirehec.microservice_Supplier.Service.Impl.SupplierDetailServiceImpl;
@@ -33,8 +32,6 @@ public class SupplierDetailController {
                 .toList(); // Collect the stream into a list
         return ResponseEntity.ok(supplierDetailDTOS);
     }
-
-
 
     @PostMapping("/save")
     public ResponseEntity<?> saveSupplierDetail(@RequestBody SupplierDetailDTO supplierDetailDTO) {

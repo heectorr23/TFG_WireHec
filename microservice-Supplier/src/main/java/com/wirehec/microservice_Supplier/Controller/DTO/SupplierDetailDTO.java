@@ -20,4 +20,6 @@ public class SupplierDetailDTO {
     private SupplierEntity supplierEntity;
 
     private Set<SupplierOrderEntity> supplierOrderEntities;
+
+    private Long idProduct;
 }
