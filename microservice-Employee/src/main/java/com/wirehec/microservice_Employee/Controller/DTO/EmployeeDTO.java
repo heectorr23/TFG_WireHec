@@ -3,6 +3,7 @@ package com.wirehec.microservice_Employee.Controller.DTO;
 
 
 import com.wirehec.microservice_Employee.Entity.RoleEntity;
+import jakarta.persistence.Column;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -24,6 +25,8 @@ public class EmployeeDTO {
     private int telefonoEmpleado;
 
     private String email;
+
+    private String username;
 
     private String passwordEmpleado;
 
