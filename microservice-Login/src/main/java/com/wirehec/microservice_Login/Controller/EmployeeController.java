@@ -12,8 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -38,18 +40,50 @@ public class EmployeeController {
 
     @PostMapping("/createUser")
     public ResponseEntity<?> createUser(@Valid @RequestBody EmployeeDTO createUserDTO) {
+
+        if (createUserDTO.getUsername() == null || createUserDTO.getUsername().isEmpty()) {
+            log.error("El campo 'username' es null o está vacío.");
+            throw new IllegalArgumentException("El campo 'username' no puede ser null o vacío.");
+        }
+
+        if (createUserDTO.getPasswordEmpleado() == null || createUserDTO.getPasswordEmpleado().isEmpty()) {
+            log.error("El campo 'passwordEmpleado' es null o está vacío.");
+            throw new IllegalArgumentException("El campo 'passwordEmpleado' no puede ser null o vacío.");
+        }
+
+        if (passwordEncoder == null) {
+            log.error("El PasswordEncoder no está configurado.");
+            throw new IllegalStateException("El PasswordEncoder no puede ser null.");
+        }
+
         Set<RoleEntity> roles = createUserDTO.getRoles().stream()
-                .map(role -> RoleEntity.builder()
-                        .name(ERole.valueOf(String.valueOf(role)))
-                        .build())
+                .map(role -> {
+                    if (role.getName() == null) {
+                        log.error("El campo 'name' del rol es null.");
+                        throw new IllegalArgumentException("El campo 'name' del rol no puede ser null.");
+                    }
+                    return RoleEntity.builder()
+                            .name(ERole.valueOf(role.getName().name()))
+                            .build();
+                })
                 .collect(Collectors.toSet());
 
         EmployeeEntity employeeEntity = EmployeeEntity.builder()
+                .nombreEmpleado(createUserDTO.getNombreEmpleado())
+                .nifEmpleado(createUserDTO.getNifEmpleado())
+                .telefonoEmpleado(createUserDTO.getTelefonoEmpleado())
+                .email(createUserDTO.getEmail())
                 .username(createUserDTO.getUsername())
                 .passwordEmpleado(passwordEncoder.encode(createUserDTO.getPasswordEmpleado()))
-                .email(createUserDTO.getEmail())
                 .roles(roles)
+                .beneficioEmpleado(createUserDTO.getBeneficioEmpleado())
+                .horaEntrada(createUserDTO.getHoraEntrada())
+                .horaSalida(createUserDTO.getHoraSalida())
+                .salario(createUserDTO.getSalario())
                 .build();
+
+        log.info("Usuario a guardar: " + employeeEntity);
+
         employeeRepository.save(employeeEntity);
         return ResponseEntity.ok(employeeEntity);
     }

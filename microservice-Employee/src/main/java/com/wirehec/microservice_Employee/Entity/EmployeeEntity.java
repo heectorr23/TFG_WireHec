@@ -37,6 +37,9 @@ public class EmployeeEntity {
     @Column(name="EmailEmpleado")
     private String email;
 
+    @Column(name="Username")
+    private String username;
+
     @Column(name="PasswordEmpleado")
     private String passwordEmpleado;
 

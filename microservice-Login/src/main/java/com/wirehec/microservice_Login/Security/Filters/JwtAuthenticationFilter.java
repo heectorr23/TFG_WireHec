@@ -1,7 +1,5 @@
 package com.wirehec.microservice_Login.Security.Filters;
 
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wirehec.microservice_Login.Entity.EmployeeEntity;
 import com.wirehec.microservice_Login.Security.Jwt.JwtUtils;
@@ -9,6 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +20,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
+@Slf4j
+public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private JwtUtils jwtUtils;
 
     public JwtAuthenticationFilter(JwtUtils jwtUtils) {
@@ -31,21 +31,31 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
-
         EmployeeEntity employeeEntity = null;
-        String username= "";
+        String username = "";
         String password = "";
+
         try {
             employeeEntity = new ObjectMapper().readValue(request.getInputStream(), EmployeeEntity.class);
-            username = employeeEntity.getUsername();
-            password = employeeEntity.getPasswordEmpleado();
 
-        } catch (StreamReadException e) {
-            throw new RuntimeException(e);
-        } catch (DatabindException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            if (employeeEntity != null) {
+                username = employeeEntity.getUsername();
+                password = employeeEntity.getPasswordEmpleado();
+            }
+
+            log.info("Username recibido: " + username);
+            log.info("Password recibido: " + password);
+
+            if (username == null || username.isEmpty()) {
+                throw new RuntimeException("El campo 'username' es null o está vacío.");
+            }
+
+            if (password == null || password.isEmpty()) {
+                throw new RuntimeException("El campo 'passwordEmpleado' es null o está vacío.");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al procesar la solicitud de autenticación: " + e.getMessage(), e);
         }
 
         UsernamePasswordAuthenticationToken authenticationToken =
@@ -61,21 +71,26 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             Authentication authResult) throws IOException, ServletException {
 
         User user = (User) authResult.getPrincipal();
-        String token = jwtUtils.generateAccesToken(user.getUsername());
+        String username = user.getUsername();
 
-        response.addHeader("Autorization", token);
+        if (username == null || username.isEmpty()) {
+            throw new RuntimeException("El username del usuario autenticado no puede ser null o vacío.");
+        }
 
-        Map <String, Object> httpResponse = new HashMap<>();
+        String token = jwtUtils.generateAccesToken(username);
+
+        response.addHeader("Authorization", token);
+
+        Map<String, Object> httpResponse = new HashMap<>();
         httpResponse.put("token", token);
         httpResponse.put("Message", "User successfully authenticated");
-        httpResponse.put("Username", user.getUsername());
+        httpResponse.put("Username", username);
 
-        response.getWriter().write(new ObjectMapper().writeValueAsString(httpResponse));
-        response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setStatus(HttpStatus.OK.value());
+        response.getWriter().write(new ObjectMapper().writeValueAsString(httpResponse));
         response.getWriter().flush();
 
         super.successfulAuthentication(request, response, chain, authResult);
     }
-
 }

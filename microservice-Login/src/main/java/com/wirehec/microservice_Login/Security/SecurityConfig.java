@@ -1,9 +1,8 @@
-package com.wirehec.microservice_Login;
+package com.wirehec.microservice_Login.Security;
 
 import com.wirehec.microservice_Login.Security.Filters.JwtAuthenticationFilter;
 import com.wirehec.microservice_Login.Security.Filters.JwtAuthorizationFilter;
 import com.wirehec.microservice_Login.Security.Jwt.JwtUtils;
-import jakarta.ws.rs.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,10 +38,12 @@ public class SecurityConfig {
         jwtAuthenticationFilter.setFilterProcessesUrl("/api/auth/login");
 
 
+
         return httpSecurity
                 .csrf(config -> config.disable())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/api/auth/hello").permitAll();
+                    auth.requestMatchers("/api/auth/createUser").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement(session ->{

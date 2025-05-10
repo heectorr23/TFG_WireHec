@@ -22,17 +22,18 @@ public class JwtUtils {
     @Value("${jwt.time.expiration}")
     private String timeExpiration;
 
-
     //Generar token de acceso
     public String generateAccesToken(String username) {
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("El username no puede ser null o vacío.");
+        }
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(username) // Aseguramos que el username se almacene en el campo 'sub'
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(timeExpiration)))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
-
     //Validar token de acceso
     public boolean isTokenValid(String token) {
         try {
@@ -50,7 +51,17 @@ public class JwtUtils {
 
     // Obtener el username del token
     public String getUsernameFromToken(String token) {
-        return getClain(token, Claims::getSubject);
+        try {
+            Claims claims = extractAllClaims(token);
+            String username = claims.getSubject(); // Extraemos el campo 'sub'
+            if (username == null || username.isEmpty()) {
+                log.error("El campo 'sub' del token está vacío o no existe.");
+            }
+            return username;
+        } catch (Exception e) {
+            log.error("Error al obtener el username del token: " + e.getMessage());
+            return null;
+        }
     }
 
 
@@ -61,7 +72,6 @@ public class JwtUtils {
     }
 
     // Obtener todos los claims del token
-
     public Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
