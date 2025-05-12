@@ -61,4 +61,9 @@ public class ContabilityController {
         contabilityService.deleteContability(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+    @GetMapping("/findBillByContability/{idBill}")
+    public ResponseEntity<?> findBillByContability(@PathVariable Long idBill) {
+        return ResponseEntity.ok(contabilityService.findBillByContability(idBill));
+    }
+
 }
