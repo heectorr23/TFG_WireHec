@@ -22,15 +22,15 @@ public class FacturaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IdFactura")
-    private Long Id;
+    private Long id;
 
-    @NotBlank //Para que la API deje dejar en blanco
+    @NotBlank
     private BigDecimal Precio;
 
-    @NotBlank //Para que la API deje dejar en blanco
+    @NotBlank
     private String Zona;
 
-    @NotBlank//Para que la API deje dejar en blanco
+    @NotBlank
     @Size(max = 100)
     private String Direccion;
 
