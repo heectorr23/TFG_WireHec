@@ -65,9 +65,9 @@ public class SupplierDetailController {
     @RequestMapping("/findAllSuplierProducts/{idProduct}")
     public ResponseEntity<?> findByIdProducts(@PathVariable Long idProduct) {
 
-        List<SuplierDetailDTO> supplierDetailDTOs = supplierDetailService.findByIdProduct(idProduct)
+        List<SupplierDetailDTO> supplierDetailDTOs = supplierDetailService.findByIdProduct(idProduct)
                 .stream()
-                .map(supplierDetail -> SuplierDetailDTO.builder()
+                .map(supplierDetail -> SupplierDetailDTO.builder()
                         .idDetalleProveedor(supplierDetail.getIdDetalleProveedor())
                         .supplierEntity(supplierDetail.getSupplierEntity())
                         .supplierOrderEntities(supplierDetail.getSupplierOrderEntities())
