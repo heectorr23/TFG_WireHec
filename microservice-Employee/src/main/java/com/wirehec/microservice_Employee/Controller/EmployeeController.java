@@ -78,4 +78,9 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @GetMapping("/findBillByEmployee/{idBill}")
+    public ResponseEntity<?> findBillByEmployee(@PathVariable Long idBill) {
+        return ResponseEntity.ok(employeeService.findBillByEmployee(idBill));
+    }
+
 }

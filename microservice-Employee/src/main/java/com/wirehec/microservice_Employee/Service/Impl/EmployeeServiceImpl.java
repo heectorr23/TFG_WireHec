@@ -1,6 +1,9 @@
 package com.wirehec.microservice_Employee.Service.Impl;
 
+import com.wirehec.microservice_Employee.Client.BillClient;
+import com.wirehec.microservice_Employee.Controller.DTO.BillDTO;
 import com.wirehec.microservice_Employee.Entity.EmployeeEntity;
+import com.wirehec.microservice_Employee.HTTP.response.BillByEmployeeResponse;
 import com.wirehec.microservice_Employee.Repository.EmployeeRepository;
 import com.wirehec.microservice_Employee.Service.Inter.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,8 @@ import java.util.List;
 public class EmployeeServiceImpl implements IEmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private BillClient billClient;
 
     @Override
     public List<EmployeeEntity> findAll() {
@@ -42,9 +47,24 @@ public class EmployeeServiceImpl implements IEmployeeService {
         employeeRepository.deleteById(id);
     }
 
+    public BillByEmployeeResponse findBillByEmployee(Long idEmployee) {
 
+        EmployeeEntity employee = employeeRepository.findById(idEmployee).orElseThrow();
 
+        List<BillDTO> billDTOList = billClient.findByIdEmployees(idEmployee);
 
-
+        return BillByEmployeeResponse.builder()
+                .nombreEmpleado(employee.getNombreEmpleado())
+                .nifEmpleado(employee.getNifEmpleado())
+                .email(employee.getEmail())
+                .passwordEmpleado(employee.getPasswordEmpleado())
+                .roles(employee.getRoles())
+                .beneficioEmpleado(employee.getBeneficioEmpleado())
+                .horaEntrada(employee.getHoraEntrada())
+                .horaSalida(employee.getHoraSalida())
+                .salario(employee.getSalario())
+                .bills(billDTOList)
+                .build();
+    }
 
 }
