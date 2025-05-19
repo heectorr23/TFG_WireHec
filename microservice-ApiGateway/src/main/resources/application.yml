@@ -1,0 +1,46 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: mvsc-apigateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: msvc-bill
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/bill/**
+
+        - id: msvc-contability
+          uri: http://localhost:8095
+          predicates:
+            - Path=/api/contability/**
+
+        - id: msvc-customer
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/customer/**
+
+        - id: msvc-employee
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/employee/**
+
+        - id: msvc-login
+          uri: http://localhost:8087
+          predicates:
+            - Path=/api/auth/**
+
+        - id: mvsc-product
+          uri: http://localhost:8085
+          predicates:
+            - Path=/api/product/**
+
+        - id: msvc-supplier
+          uri: http://localhost:8086
+          predicates:
+            - Path=/api/supplier/**
