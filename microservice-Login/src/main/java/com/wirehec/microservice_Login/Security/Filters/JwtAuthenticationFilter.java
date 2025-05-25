@@ -77,7 +77,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             throw new RuntimeException("El username del usuario autenticado no puede ser null o vacío.");
         }
 
-        String token = jwtUtils.generateAccesToken(username);
+        String token = jwtUtils.generateAccesToken(user);
 
         response.addHeader("Authorization", token);
 
