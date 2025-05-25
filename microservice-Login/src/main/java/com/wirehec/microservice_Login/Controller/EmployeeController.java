@@ -9,13 +9,12 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -38,6 +37,7 @@ public class EmployeeController {
         return "Hello World Secured";
     }
 
+    @PreAuthorize("hasRole('BOSS')")
     @PostMapping("/createUser")
     public ResponseEntity<?> createUser(@Valid @RequestBody EmployeeDTO createUserDTO) {
 

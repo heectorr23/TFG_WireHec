@@ -7,6 +7,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -22,19 +23,24 @@ public class JwtUtils {
     @Value("${jwt.time.expiration}")
     private String timeExpiration;
 
-    //Generar token de acceso
-    public String generateAccesToken(String username) {
-        if (username == null || username.isEmpty()) {
-            throw new IllegalArgumentException("El username no puede ser null o vacío.");
+    // Generar token de acceso
+    public String generateAccesToken(UserDetails userDetails) {
+        if (userDetails == null || userDetails.getUsername() == null || userDetails.getUsername().isEmpty()) {
+            throw new IllegalArgumentException("El UserDetails o el username no puede ser null o vacío.");
         }
+
         return Jwts.builder()
-                .setSubject(username) // Aseguramos que el username se almacene en el campo 'sub'
+                .setSubject(userDetails.getUsername())
+                .claim("roles", userDetails.getAuthorities().stream()
+                        .map(auth -> auth.getAuthority())
+                        .toList())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(timeExpiration)))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
-    //Validar token de acceso
+
+    // Validar token de acceso
     public boolean isTokenValid(String token) {
         try {
             Jwts.parserBuilder()
@@ -63,7 +69,6 @@ public class JwtUtils {
             return null;
         }
     }
-
 
     // Obtener solo un claim del token
     public <T> T getClain(String token, Function<Claims, T> claimsTFunction) {
