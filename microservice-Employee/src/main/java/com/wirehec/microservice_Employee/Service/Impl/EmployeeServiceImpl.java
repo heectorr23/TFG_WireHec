@@ -1,6 +1,9 @@
 package com.wirehec.microservice_Employee.Service.Impl;
 
+import com.wirehec.microservice_Employee.Client.BillClient;
+import com.wirehec.microservice_Employee.Controller.DTO.BillDTO;
 import com.wirehec.microservice_Employee.Entity.EmployeeEntity;
+import com.wirehec.microservice_Employee.HTTP.response.BillByEmployeeResponse;
 import com.wirehec.microservice_Employee.Repository.EmployeeRepository;
 import com.wirehec.microservice_Employee.Service.Inter.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import java.util.List;
 public class EmployeeServiceImpl implements IEmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private BillClient billClient;
 
     @Override
     public List<EmployeeEntity> findAll() {
