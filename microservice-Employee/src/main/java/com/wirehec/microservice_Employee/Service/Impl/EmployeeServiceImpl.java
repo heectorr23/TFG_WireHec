@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class EmployeeServiceImpl implements IEmployeeService {
     @Autowired
@@ -23,10 +22,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public List<EmployeeEntity> findAll() {
         return employeeRepository.findAll();
     }
+
     @Override
     public EmployeeEntity saveEmployee(EmployeeEntity employeeEntity) {
         return employeeRepository.save(employeeEntity);
     }
+
     @Override
     public EmployeeEntity updateEmployee(Long id, EmployeeEntity employeeEntity) {
         EmployeeEntity existingEmployee = employeeRepository.findById(id).orElseThrow();
@@ -34,7 +35,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
         existingEmployee.setNifEmpleado(employeeEntity.getNifEmpleado());
         existingEmployee.setEmail(employeeEntity.getEmail());
         existingEmployee.setPasswordEmpleado(employeeEntity.getPasswordEmpleado());
-        existingEmployee.setRoles(employeeEntity.getRoles());
+        if (employeeEntity.getRoles() != null && !employeeEntity.getRoles().isEmpty()) {
+            existingEmployee.setRoles(employeeEntity.getRoles());
+        }
         existingEmployee.setBeneficioEmpleado(employeeEntity.getBeneficioEmpleado());
         existingEmployee.setHoraEntrada(employeeEntity.getHoraEntrada());
         existingEmployee.setHoraSalida(employeeEntity.getHoraSalida());
@@ -43,28 +46,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
+    public EmployeeEntity findById(Long id) {
+        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee not found with ID: " + id));
+    }
+
+    @Override
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
     }
-
-    public BillByEmployeeResponse findBillByEmployee(Long idEmployee) {
-
-        EmployeeEntity employee = employeeRepository.findById(idEmployee).orElseThrow();
-
-        List<BillDTO> billDTOList = billClient.findByIdEmployees(idEmployee);
-
-        return BillByEmployeeResponse.builder()
-                .nombreEmpleado(employee.getNombreEmpleado())
-                .nifEmpleado(employee.getNifEmpleado())
-                .email(employee.getEmail())
-                .passwordEmpleado(employee.getPasswordEmpleado())
-                .roles(employee.getRoles())
-                .beneficioEmpleado(employee.getBeneficioEmpleado())
-                .horaEntrada(employee.getHoraEntrada())
-                .horaSalida(employee.getHoraSalida())
-                .salario(employee.getSalario())
-                .bills(billDTOList)
-                .build();
-    }
-
 }
