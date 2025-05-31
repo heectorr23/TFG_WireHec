@@ -1,8 +1,9 @@
 package com.wirehec.microservice_Supplier.Entity;
+
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -19,11 +20,11 @@ public class SupplierOrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IdPedidoProveedor")
-    private Long  idPedidoProveedor;
+    private Long idPedidoProveedor;
 
-    @Column(name = "FechaPedido")
-    private Date FechaPedido;
+    @Column(name = "FechaPedido", nullable = false)
+    private LocalDate FechaPedido;
 
-    @Column(name = "FechaEntrega")
-    private Date FechaEntrega;
+    @Column(name = "FechaEntrega", nullable = false)
+    private LocalDate FechaEntrega;
 }
