@@ -20,16 +20,14 @@ public class SupplierDetailEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IdDetalleProveedor")
-    private Long  idDetalleProveedor;
+    private Long idDetalleProveedor;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "IdProveedor", referencedColumnName = "IdProveedor")
     private SupplierEntity supplierEntity;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinTable(name = "PedidoProveedor",
-            joinColumns = @JoinColumn(name = "IdDetalleProveedor"),
-            inverseJoinColumns = @JoinColumn(name = "IdPedidoProveedor"))
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "IdDetalleProveedor", referencedColumnName = "IdDetalleProveedor")
     private Set<SupplierOrderEntity> supplierOrderEntities;
 
     private Long idProduct;

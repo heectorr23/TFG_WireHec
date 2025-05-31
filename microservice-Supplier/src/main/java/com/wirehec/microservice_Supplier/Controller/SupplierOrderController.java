@@ -29,9 +29,10 @@ public class SupplierOrderController {
                         .FechaEntrega(supplierOrder.getFechaEntrega())
                         .build()
                 )
-                .toList(); // Collect the stream into a list
+                .toList();
         return ResponseEntity.ok(supplierOrderDTOS);
     }
+
     @PostMapping("/save")
     public ResponseEntity<?> saveSupplierOrder(@RequestBody SupplierOrderDTO supplierOrderDTO) {
         SupplierOrderEntity supplierOrderEntity = SupplierOrderEntity.builder()

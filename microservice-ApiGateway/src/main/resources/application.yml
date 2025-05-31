@@ -44,7 +44,13 @@ spring:
           uri: http://localhost:8086
           predicates:
             - Path=/api/supplier/**
+        - id: msvc-supplier
+          uri: http://localhost:8086
+          predicates:
             - Path=/api/orderSupplier/**
+        - id: msvc-supplier
+          uri: http://localhost:8086
+          predicates:
             - Path=/api/supplierDetail/**
     config:
       enabled: false

@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -13,9 +13,9 @@ import java.sql.Date;
 @Builder
 public class SupplierOrderDTO {
 
-    private Long  idPedidoProveedor;
+    private Long idPedidoProveedor;
 
-    private Date FechaPedido;
+    private LocalDate FechaPedido;
 
-    private Date FechaEntrega;
+    private LocalDate FechaEntrega;
 }
