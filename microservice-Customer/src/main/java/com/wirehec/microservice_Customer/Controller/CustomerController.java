@@ -24,6 +24,7 @@ public class CustomerController {
         List<CustomerDTO> customerDTOs = customerService.findAll()
                 .stream()
                 .map(customer -> CustomerDTO.builder()
+                        .id(customer.getId())
                         .name(customer.getName())
                         .contacto(customer.getContacto())
                         .telefono(customer.getTelefono())
@@ -39,6 +40,7 @@ public class CustomerController {
     @PostMapping("/save")
     public ResponseEntity<?> saveCustomer(@RequestBody CustomerDTO customerDTO) {
         CustomerEntity customerEntity = CustomerEntity.builder()
+                .id(customerDTO.getId())
                 .name(customerDTO.getName())
                 .contacto(customerDTO.getContacto())
                 .telefono(customerDTO.getTelefono())
