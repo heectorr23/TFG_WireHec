@@ -11,6 +11,7 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class CustomerDTO {
+    private Long id;
 
     private String name;
 
