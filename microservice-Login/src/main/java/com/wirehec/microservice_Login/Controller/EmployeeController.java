@@ -5,6 +5,7 @@ import com.wirehec.microservice_Login.Entity.ERole;
 import com.wirehec.microservice_Login.Entity.EmployeeEntity;
 import com.wirehec.microservice_Login.Entity.RoleEntity;
 import com.wirehec.microservice_Login.Repository.EmployeeRepository;
+import com.wirehec.microservice_Login.Service.Impl.EmployeeServiceImpl;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,6 +29,9 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private EmployeeServiceImpl employeeService;
 
     @GetMapping("/hello")
     public String hello() {
@@ -87,10 +93,21 @@ public class EmployeeController {
         employeeRepository.save(employeeEntity);
         return ResponseEntity.ok(employeeEntity);
     }
+    @PutMapping("/changePassword")
+    @PreAuthorize("hasRole('EMPLOYEE') or hasRole('BOSS')")
+    public ResponseEntity<?> changePassword(@RequestBody Map<String, String> passwordRequest, Principal principal) {
+        String username = principal.getName(); // Obtiene el usuario autenticado
+        String newPassword = passwordRequest.get("newPassword");
 
-    @DeleteMapping("/deleteUser")
-    public String deleteUser(@RequestParam String id) {
-        employeeRepository.deleteById(Long.parseLong(id));
-        return "User deleted ".concat(id);
+        if (newPassword == null || newPassword.isEmpty()) {
+            return ResponseEntity.badRequest().body("La nueva contraseña no puede estar vacía.");
+        }
+
+        boolean isUpdated = employeeService.changePassword(username, newPassword);
+        if (isUpdated) {
+            return ResponseEntity.ok("Contraseña actualizada correctamente.");
+        } else {
+            return ResponseEntity.status(400).body("Error al actualizar la contraseña.");
+        }
     }
 }
